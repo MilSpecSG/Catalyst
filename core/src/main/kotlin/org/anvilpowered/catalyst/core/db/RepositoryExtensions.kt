@@ -16,31 +16,23 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.anvilpowered.catalyst.api.user
+package org.anvilpowered.catalyst.core.db
 
-import org.anvilpowered.anvil.core.db.Creates
 import org.anvilpowered.anvil.core.db.DomainEntity
-import org.anvilpowered.anvil.core.user.Player
-import java.util.UUID
+import org.jetbrains.exposed.sql.ResultRow
+import org.jetbrains.exposed.sql.Table
+import org.jetbrains.exposed.sql.insert
+import org.jetbrains.exposed.sql.statements.InsertStatement
+import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 
-/**
- * A user of a game of the Anvil platform.
- *
- * Represents a single user of a game.
- */
-interface MinecraftUser : DomainEntity {
-    val username: String
-    val ipAddress: String
-    val nickname: String?
-
-    data class CreateDto(
-        val id: UUID,
-        val username: String,
-        val ipAddress: String,
-    ) : Creates<MinecraftUser>
-
-    data class Online(
-        val user: MinecraftUser,
-        val player: Player,
-    )
+internal suspend fun <T : Table, E : DomainEntity> newSaveTransaction(
+    table: T,
+    toTable: context(T) InsertStatement<Number>.() -> Unit,
+    toEntity: ResultRow.() -> E,
+): E {
+    val fromDB = newSuspendedTransaction {
+        table.insert { toTable(it) }
+    }.resultedValues?.firstOrNull()?.toEntity()
+    checkNotNull(fromDB) { "Failed to save entity" }
+    return fromDB
 }

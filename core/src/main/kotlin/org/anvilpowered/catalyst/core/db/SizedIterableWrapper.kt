@@ -16,31 +16,19 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.anvilpowered.catalyst.api.user
+package org.anvilpowered.catalyst.core.db
 
-import org.anvilpowered.anvil.core.db.Creates
-import org.anvilpowered.anvil.core.db.DomainEntity
-import org.anvilpowered.anvil.core.user.Player
-import java.util.UUID
+import org.anvilpowered.anvil.core.db.SizedIterable as AnvilSizedIterable
+import org.jetbrains.exposed.sql.SizedIterable as ExposedSizedIterable
 
-/**
- * A user of a game of the Anvil platform.
- *
- * Represents a single user of a game.
- */
-interface MinecraftUser : DomainEntity {
-    val username: String
-    val ipAddress: String
-    val nickname: String?
+fun <T> ExposedSizedIterable<T>.wrap(): AnvilSizedIterable<T> = SizedIterableWrapper(this)
 
-    data class CreateDto(
-        val id: UUID,
-        val username: String,
-        val ipAddress: String,
-    ) : Creates<MinecraftUser>
-
-    data class Online(
-        val user: MinecraftUser,
-        val player: Player,
-    )
+private class SizedIterableWrapper<out T>(
+    private val delegate: ExposedSizedIterable<T>,
+) : AnvilSizedIterable<T> {
+    override fun copy(): AnvilSizedIterable<T> = SizedIterableWrapper(delegate.copy())
+    override fun count(): Long = delegate.count()
+    override fun empty(): Boolean = delegate.empty()
+    override fun iterator(): Iterator<T> = delegate.iterator()
+    override fun limit(n: Int, offset: Long): AnvilSizedIterable<T> = SizedIterableWrapper(delegate.limit(n, offset))
 }

@@ -16,31 +16,8 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.anvilpowered.catalyst.api.user
+package org.anvilpowered.catalyst.core
 
-import org.anvilpowered.anvil.core.db.Creates
-import org.anvilpowered.anvil.core.db.DomainEntity
-import org.anvilpowered.anvil.core.user.Player
-import java.util.UUID
-
-/**
- * A user of a game of the Anvil platform.
- *
- * Represents a single user of a game.
- */
-interface MinecraftUser : DomainEntity {
-    val username: String
-    val ipAddress: String
-    val nickname: String?
-
-    data class CreateDto(
-        val id: UUID,
-        val username: String,
-        val ipAddress: String,
-    ) : Creates<MinecraftUser>
-
-    data class Online(
-        val user: MinecraftUser,
-        val player: Player,
-    )
+interface Registrar {
+    fun register()
 }

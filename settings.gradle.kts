@@ -21,9 +21,25 @@ pluginManagement {
 rootProject.name = "catalyst"
 
 sequenceOf(
+    "app-breeze",
+    "app-breeze-backend",
+    "app-breeze-core",
+    "app-breeze-proxy",
+    "app-cyclone",
+    "app-cyclone-backend",
+    "app-cyclone-core",
+    "app-cyclone-proxy",
+    "app-cyclone-worker",
+    "app-droplet",
+    "app-droplet-core",
+    "app-droplet-paper",
+    "app-droplet-sponge",
     "api",
     "core",
-    "proxy",
+    "core-chat",
+    "core-command",
+    "velocity",
+    "velocity-listener",
 ).forEach {
     val project = ":catalyst-$it"
     include(project)

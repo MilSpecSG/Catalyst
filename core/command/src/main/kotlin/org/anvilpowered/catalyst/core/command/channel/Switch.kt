@@ -16,31 +16,17 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.anvilpowered.catalyst.api.user
+package org.anvilpowered.catalyst.core.command.channel
 
-import org.anvilpowered.anvil.core.db.Creates
-import org.anvilpowered.anvil.core.db.DomainEntity
-import org.anvilpowered.anvil.core.user.Player
-import java.util.UUID
+import com.velocitypowered.api.command.CommandSource
+import org.anvilpowered.anvil.velocity.command.extractPlayerSourceOrAbort
+import org.anvilpowered.kbrig.argument.StringArgumentType
+import org.anvilpowered.kbrig.builder.ArgumentBuilder
+import org.anvilpowered.kbrig.context.executesScoped
+import org.anvilpowered.kbrig.tree.ArgumentCommandNode
 
-/**
- * A user of a game of the Anvil platform.
- *
- * Represents a single user of a game.
- */
-interface MinecraftUser : DomainEntity {
-    val username: String
-    val ipAddress: String
-    val nickname: String?
-
-    data class CreateDto(
-        val id: UUID,
-        val username: String,
-        val ipAddress: String,
-    ) : Creates<MinecraftUser>
-
-    data class Online(
-        val user: MinecraftUser,
-        val player: Player,
-    )
-}
+fun ChannelCommandFactory.createSwitch(): ArgumentCommandNode<CommandSource, String> =
+    ArgumentBuilder.required<CommandSource, String>("channel", StringArgumentType.SingleWord)
+        .suggestChannelArgument(channelService) { extractPlayerSourceOrAbort() }
+        .executesScoped { channelSwitchFrontend.executeChannelSwitch() }
+        .build()

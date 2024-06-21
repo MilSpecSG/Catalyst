@@ -51,14 +51,8 @@ allprojects {
     }
 }
 
-// for uber jar
-dependencies {
-    runtimeOnly(project(":catalyst-proxy"))
-}
-
 tasks {
     shadowJar {
-        archiveFileName = "catalyst-${project.version}.jar"
 
         mergeServiceFiles()
 

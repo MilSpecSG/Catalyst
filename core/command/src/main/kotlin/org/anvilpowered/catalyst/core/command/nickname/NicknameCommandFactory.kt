@@ -16,31 +16,19 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.anvilpowered.catalyst.api.user
+package org.anvilpowered.catalyst.core.command.nickname
 
-import org.anvilpowered.anvil.core.db.Creates
-import org.anvilpowered.anvil.core.db.DomainEntity
-import org.anvilpowered.anvil.core.user.Player
-import java.util.UUID
+import org.anvilpowered.anvil.core.command.CommandSource
+import org.anvilpowered.catalyst.api.user.MinecraftUserRepository
+import org.anvilpowered.kbrig.builder.ArgumentBuilder
+import org.anvilpowered.kbrig.tree.LiteralCommandNode
 
-/**
- * A user of a game of the Anvil platform.
- *
- * Represents a single user of a game.
- */
-interface MinecraftUser : DomainEntity {
-    val username: String
-    val ipAddress: String
-    val nickname: String?
+class NicknameCommandFactory(val minecraftUserRepository: MinecraftUserRepository) {
 
-    data class CreateDto(
-        val id: UUID,
-        val username: String,
-        val ipAddress: String,
-    ) : Creates<MinecraftUser>
-
-    data class Online(
-        val user: MinecraftUser,
-        val player: Player,
-    )
+    fun create(): LiteralCommandNode<CommandSource> {
+        return ArgumentBuilder.literal<CommandSource>("nickname")
+            .then(createSet())
+            .then(createDelete())
+            .build()
+    }
 }

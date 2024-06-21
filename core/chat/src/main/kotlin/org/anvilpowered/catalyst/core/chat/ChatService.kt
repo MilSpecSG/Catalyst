@@ -16,31 +16,20 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.anvilpowered.catalyst.api.user
+package org.anvilpowered.catalyst.core.chat
 
-import org.anvilpowered.anvil.core.db.Creates
-import org.anvilpowered.anvil.core.db.DomainEntity
+import net.kyori.adventure.text.Component
 import org.anvilpowered.anvil.core.user.Player
+import org.anvilpowered.catalyst.api.chat.ChannelMessage
 import java.util.UUID
 
-/**
- * A user of a game of the Anvil platform.
- *
- * Represents a single user of a game.
- */
-interface MinecraftUser : DomainEntity {
-    val username: String
-    val ipAddress: String
-    val nickname: String?
+interface ChatService {
 
-    data class CreateDto(
-        val id: UUID,
-        val username: String,
-        val ipAddress: String,
-    ) : Creates<MinecraftUser>
-
-    data class Online(
-        val user: MinecraftUser,
-        val player: Player,
-    )
+    suspend fun sendMessage(message: ChannelMessage.Resolved)
+    fun ignore(playerUUID: UUID, targetPlayerUUID: UUID): Component
+    fun unIgnore(playerUUID: UUID, targetPlayerUUID: UUID): Component
+    fun isIgnored(playerUUID: UUID, targetPlayerUUID: UUID): Boolean
+    fun highlightPlayerNames(sender: Player, message: Component): Component
+    fun toggleChatForPlayer(player: Player)
+    fun isDisabledForPlayer(player: Player): Boolean
 }

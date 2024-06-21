@@ -16,23 +16,23 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.anvilpowered.catalyst.api.chat
+package org.anvilpowered.catalyst.core.chat
 
-import org.anvilpowered.anvil.core.user.Player
+import org.anvilpowered.catalyst.api.chat.ChannelMessage
+import org.anvilpowered.catalyst.api.chat.ChannelService
 import org.anvilpowered.catalyst.api.config.ChatChannel
-import java.util.UUID
+import org.anvilpowered.catalyst.core.chat.builder.ChannelMessageBuilderImpl
+import org.anvilpowered.catalyst.core.chat.builder.ChatChannelBuilderImpl
+import org.koin.core.module.dsl.bind
+import org.koin.core.module.dsl.singleOf
+import org.koin.dsl.module
 
-interface ChannelService {
-
-    val defaultChannel: ChatChannel
-
-    operator fun get(channelId: String): ChatChannel?
-
-    fun getForPlayer(playerId: UUID): ChatChannel
-
-    fun getAvailable(player: Player? = null): List<ChatChannel>
-
-    fun getReceivers(channelId: String): Sequence<Player>
-
-    fun switch(userUUID: UUID, channelId: String)
+val ChatModule = module {
+    singleOf(::ChatFilter)
+    singleOf(ChannelMessageBuilderImpl::Factory) { bind<ChannelMessage.Builder.Factory>() }
+    singleOf(ChatChannelBuilderImpl::Factory) { bind<ChatChannel.Builder.Factory>() }
+    singleOf(::ChannelServiceImpl) { bind<ChannelService>() }
+    singleOf(::ChatServiceImpl) { bind<ChatService>() }
+    singleOf(::PrivateMessageService)
+    singleOf(::StaffListService)
 }

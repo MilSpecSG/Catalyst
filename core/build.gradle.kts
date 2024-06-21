@@ -4,4 +4,9 @@ dependencies {
         exclude(group = "org.slf4j")
     }
     runtimeOnly(libs.driver.postgresql)
+
+    api(platform(libs.exposed.bom))
+    api(libs.bundles.exposed) {
+        exclude(group = "org.slf4j")
+    }
 }
