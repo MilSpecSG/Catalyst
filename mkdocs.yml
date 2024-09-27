@@ -1,0 +1,75 @@
+# yaml-language-server: $schema=https://squidfunk.github.io/mkdocs-material/schema.json
+
+site_name: Catalyst
+repo_name: anvilpowered/catalyst
+repo_url: https://github.com/anvilpowered/catalyst
+theme:
+  name: material
+  palette:
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: teal
+      accent: cyan
+      toggle:
+        icon: material/lightbulb
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: teal
+      accent: indigo
+      toggle:
+        icon: material/lightbulb-outline
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.sections
+    - content.code.copy
+    - content.code.select
+
+nav:
+  - Welcome to Catalyst: index.md
+  - Getting Started:
+      - Docker Compose Setup: getting-started/docker-compose.md
+      - Kubernetes Setup: getting-started/kubernetes.md
+      - Legacy Setup: getting-started/legacy.md
+  - Features:
+      - Formatting: features/formatting.md
+      - Placeholders: features/placeholders.md
+
+#nav:
+#  - Vorbereitung:
+#      - "Terminal Verwendung": "preparation/terminal.md"
+#      - Paket Manager: preparation/packagemanager.md
+#      - Installieren von Java: preparation/installation-java.md
+#      - Installieren von IntelliJ: preparation/installation-intellij.md
+#      - Installieren von DrRacket: preparation/installation-racket.md
+#      - Installieren von Git: preparation/installation-git.md
+#      - Hinzufügen der Matrikelnummer: preparation/matriculation-number.md
+#  - Hausübungen:
+#      - Herunterladen und importieren: exercises/download-import.md
+#      - Bearbeiten von Hausübungen: exercises/edit.md
+#      - Beheben von häufigen Fehlern: exercises/fix-errors.md
+#      - Exportieren und Hochladen: exercises/export-upload.md
+#      - Nicht Unterstützte IDEs: exercises/download-import-unsupported.md
+#      - Dokumentation von Java-Quellcode: exercises/documentation.md
+#      - Beanstandungen: exercises/complaints.md
+#  - Sprechstunden:
+#      - Bevor Sie eine Sprechstunde besuchen ...: support/good-bad-questions.md
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - admonition
+  - pymdownx.details
