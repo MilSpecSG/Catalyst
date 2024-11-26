@@ -30,5 +30,5 @@ exposed = ["exposed-core", "exposed-dao", "exposed-jdbc", "exposed-java-time"]
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-ktlint = "org.jlleitschuh.gradle.ktlint:11.6.1"
+ktlint = "org.jlleitschuh.gradle.ktlint:12.1.2"
 shadow = "io.github.goooler.shadow:8.1.7"
