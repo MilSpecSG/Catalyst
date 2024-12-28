@@ -1,7 +1,7 @@
 [versions]
 anvil = "0.4.0-SNAPSHOT"
 kotlin = "2.0.0"
-log4j = "2.23.1"
+log4j = "2.24.3"
 
 [libraries]
 adventure-bom = "net.kyori:adventure-bom:4.18.0"
