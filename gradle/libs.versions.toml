@@ -1,6 +1,6 @@
 [versions]
 anvil = "0.4.0-SNAPSHOT"
-kotlin = "2.0.0"
+kotlin = "2.1.0"
 log4j = "2.23.1"
 
 [libraries]
