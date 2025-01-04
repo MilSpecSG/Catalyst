@@ -109,7 +109,7 @@ services:
       - ./proxy/plugins:/server/plugins
 
   paper-0:
-    image: itzg/minecraft-server:2024.12.1
+    image: itzg/minecraft-server:2025.1.0
     expose:
       - 25565
     environment:
@@ -127,7 +127,7 @@ services:
       - ../config/paper-patch-set.json:/config/paper-patch-set.json:ro
 
   paper-1:
-    image: itzg/minecraft-server:2024.12.1
+    image: itzg/minecraft-server:2025.1.0
     expose:
       - 25565
     environment:
