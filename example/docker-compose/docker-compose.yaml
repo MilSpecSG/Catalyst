@@ -40,7 +40,7 @@ services:
   #      - ./mariadb:/var/lib/mysql
 
   lp:
-    image: ghcr.io/luckperms/luckperms:v5.4.151
+    image: ghcr.io/luckperms/luckperms:v5.4.152
     environment:
       # LUCKPERMS_STORAGE_METHOD: mariadb
       LUCKPERMS_STORAGE_METHOD: postgresql
