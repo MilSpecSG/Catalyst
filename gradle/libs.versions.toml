@@ -9,7 +9,7 @@ anvil-core = { module = "org.anvilpowered:anvil-core", version.ref = "anvil" }
 anvil-velocity = { module = "org.anvilpowered:anvil-velocity", version.ref = "anvil" }
 discord-jda = "net.dv8tion:JDA:5.2.2"
 discord-webhooks = "club.minnced:discord-webhooks:0.8.4"
-driver-mariadb = "org.mariadb.jdbc:mariadb-java-client:3.3.2"
+driver-mariadb = "org.mariadb.jdbc:mariadb-java-client:3.5.1"
 driver-postgresql = "org.postgresql:postgresql:42.7.2"
 exposed-bom = "org.jetbrains.exposed:exposed-bom:0.57.0"
 exposed-core = { module = "org.jetbrains.exposed:exposed-core" }
